@@ -605,6 +605,12 @@ replace with a locale-aware formatter.
 
 Known gaps, stated plainly rather than papered over.
 
+- [ ] **Modernise the toolchain.** The app builds on AGP 8.2.2 / `compileSdk 34`. AndroidX
+      1.4+ and Material 1.12+ publish AAR metadata requiring `compileSdk 35` and AGP 8.6+,
+      so those updates are currently pinned in
+      [`dependabot.yml`](.github/dependabot.yml) rather than merged one failing PR at a
+      time. Moving to AGP 8.7+/`compileSdk 35` unpins the whole AndroidX line in one
+      deliberate step.
 - [ ] **Month-scope the dashboard total.** `HomeFragment` labels the hero figure
       *Total Spent This Month* but currently sums the entire history. Needs a
       `whereGreaterThanOrEqualTo("timestamp", startOfMonth)` bound — and the label and the

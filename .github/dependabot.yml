@@ -28,6 +28,25 @@ updates:
           - "com.google.firebase:*"
           - "com.google.gms:*"
     ignore:
+      # ── Pinned by the current toolchain (compileSdk 34 / AGP 8.2.2) ────
+      #
+      # AndroidX 1.4+ and Material 1.12+ publish AAR metadata demanding
+      # compileSdk 35 and AGP 8.6+, so these bumps fail `checkDebugAarMetadata`
+      # rather than merely warning. They are unpinned by the toolchain
+      # modernisation tracked in the README roadmap, not one PR at a time.
+      - dependency-name: "androidx.appcompat:appcompat"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "androidx.recyclerview:recyclerview"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "androidx.constraintlayout:constraintlayout"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "com.google.android.material:material"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+
+      # Gradle 9 drops APIs that AGP 8.2.2 still relies on.
+      - dependency-name: "gradle"
+        update-types: ["version-update:semver-major"]
+
       # Major AGP bumps carry breaking Gradle changes and need a deliberate
       # migration, not an automated PR.
       - dependency-name: "com.android.tools.build:gradle"
