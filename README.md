@@ -166,6 +166,11 @@ flowchart TD
     class ADP,CAT glue
     class FH,MDL data
     class AUTH,FS,RULES cloud
+
+    style UI    fill:#FBFBFF,stroke:#C9CBEC,stroke-dasharray:4 4
+    style BIND  fill:#FFFAFB,stroke:#EFC9D2,stroke-dasharray:4 4
+    style DATA  fill:#F9FEFC,stroke:#BEE8DA,stroke-dasharray:4 4
+    style CLOUD fill:#FFFDF6,stroke:#EBD9A8,stroke-dasharray:4 4
 ```
 
 **Why a singleton for the data layer.** `FirestoreHelper` resolves the signed-in UID once
@@ -191,7 +196,7 @@ sequenceDiagram
     participant L as HomeFragment / ExpensesFragment
 
     U->>A: fills the form, taps Save
-    A->>A: validate() — non-empty title,<br/>amount > 0, category chosen
+    A->>A: validate() — title, amount > 0, category
     A->>H: addExpense(Expense, onSuccess, onFailure)
     H->>F: users/{uid}/expenses.add(expense)
 
@@ -200,7 +205,7 @@ sequenceDiagram
     L->>L: rebind list, recompute totals
 
     F->>R: evaluate create
-    R->>R: isOwner(uid) &&<br/>keys().hasOnly([...]) &&<br/>amount > 0 && category in [...]
+    Note over R: isOwner(uid) · keys().hasOnly([...])<br/>amount > 0 · category in the allowlist
 
     alt rules accept
         R-->>F: ✅ commit
