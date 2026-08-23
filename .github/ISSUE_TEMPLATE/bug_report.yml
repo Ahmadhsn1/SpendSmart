@@ -1,0 +1,115 @@
+name: 🐛 Bug report
+description: Something in the app does not behave the way it should
+title: "[Bug]: "
+labels: ["bug", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing this. A reproducible report is worth ten vague ones.
+
+        **Security issues do not belong here.** Anything involving credentials,
+        Firestore rules, or one user reading another user's data goes through
+        [SECURITY.md](https://github.com/Ahmadhsn1/SpendSmart/blob/main/SECURITY.md).
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Preflight
+      options:
+        - label: I searched the existing issues and this is not a duplicate
+          required: true
+        - label: This is not a security or data-exposure issue
+          required: true
+        - label: I have my own `app/google-services.json` in place and the Firestore rules deployed
+          required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: The actual behaviour, in one or two sentences.
+      placeholder: Deleting an expense while a search filter is active removes the wrong row.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Numbered, starting from a cold launch.
+      value: |
+        1. Launch the app and sign in
+        2. Go to the Expenses tab
+        3. Type `food` into the search field
+        4. Tap delete on the second row
+        5. …
+    validations:
+      required: true
+
+  - type: dropdown
+    id: screen
+    attributes:
+      label: Which screen
+      options:
+        - Splash
+        - Login
+        - Sign up
+        - Dashboard (Home)
+        - Expenses list
+        - Add expense
+        - Edit expense
+        - Profile
+        - Multiple / not screen-specific
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: Device and Android version
+      placeholder: Pixel 6a, Android 14 (API 34) — or "Emulator, API 24"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: App version or commit
+      placeholder: v1.0.0, or the short SHA you built from
+    validations:
+      required: true
+
+  - type: dropdown
+    id: network
+    attributes:
+      label: Network state when it happened
+      options:
+        - Online, good connection
+        - Online, slow or flaky
+        - Offline
+        - Not relevant / unsure
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logcat output
+      description: |
+        `adb logcat --pid=$(adb shell pidof -s com.spendsmart)` while reproducing.
+        **Redact your email address and any token before pasting.**
+      render: text
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or screen recording
+      description: Drag files in here. Optional, but usually decisive for UI bugs.

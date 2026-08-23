@@ -1,0 +1,12 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🔒 Report a security vulnerability
+    url: https://github.com/Ahmadhsn1/SpendSmart/security/advisories/new
+    about: >
+      Anything involving credentials, the Firestore rules, or one user reaching another
+      user's data. Please use the private advisory flow, not a public issue.
+  - name: 💬 Question or setup help
+    url: https://github.com/Ahmadhsn1/SpendSmart/discussions
+    about: >
+      Trouble getting your own Firebase project wired up, or a question about how
+      something works. Check "Getting started" in the README first.

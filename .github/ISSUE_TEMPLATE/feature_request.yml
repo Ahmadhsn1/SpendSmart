@@ -1,0 +1,94 @@
+name: ✨ Feature request
+description: Suggest a capability SpendSmart does not have yet
+title: "[Feature]: "
+labels: ["enhancement", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing, please check the
+        [roadmap](https://github.com/Ahmadhsn1/SpendSmart#roadmap) — the known gaps are
+        listed there, and it is worth commenting on an existing item rather than opening
+        a parallel issue.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Preflight
+      options:
+        - label: I checked the roadmap and the open issues
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you unable to do today? Describe the situation, not the solution.
+      placeholder: >
+        I split rent with a flatmate, so half of every rent expense is not really mine, and
+        the dashboard total ends up overstating what I actually spent.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like to happen
+      description: Your proposed behaviour. Sketches and mockups welcome.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of the app
+      options:
+        - Dashboard / statistics
+        - Expense entry or editing
+        - Expense list, search, or sorting
+        - Categories
+        - Budgets or alerts
+        - Charts and reports
+        - Export or sharing
+        - Authentication or account
+        - Theming and design
+        - Data model / Firestore
+        - Build, CI, or tooling
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+      description: Other ways to solve the same problem, and why you prefer yours.
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: How large do you think this is
+      description: A guess is fine — it helps with triage.
+      options:
+        - Small — one screen or one helper
+        - Medium — a new screen, or a change across several
+        - Large — touches the data model and the Firestore rules
+        - No idea
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: data-model
+    attributes:
+      label: Data implications
+      options:
+        - label: This would need a new field on the expense document (and therefore a `firestore.rules` change)
+        - label: This would need a new collection
+        - label: No data-model change — presentation only
+
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Would you like to build it?
+      options:
+        - label: I am willing to open a pull request for this

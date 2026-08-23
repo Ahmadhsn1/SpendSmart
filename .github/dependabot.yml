@@ -1,0 +1,49 @@
+version: 2
+
+updates:
+  # ── Gradle: AndroidX, Material, and the Firebase BOM ──────────────────
+  - package-ecosystem: gradle
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Karachi
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+    labels:
+      - dependencies
+      - gradle
+    groups:
+      # AndroidX and Material move together often enough that separate PRs
+      # are just noise.
+      androidx-material:
+        patterns:
+          - "androidx.*"
+          - "com.google.android.material:*"
+      # The BOM pins every Firebase artifact, so one bump is the whole set.
+      firebase:
+        patterns:
+          - "com.google.firebase:*"
+          - "com.google.gms:*"
+    ignore:
+      # Major AGP bumps carry breaking Gradle changes and need a deliberate
+      # migration, not an automated PR.
+      - dependency-name: "com.android.tools.build:gradle"
+        update-types: ["version-update:semver-major"]
+
+  # ── GitHub Actions used by the CI workflow ────────────────────────────
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Karachi
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "chore(ci)"
+    labels:
+      - dependencies
+      - github-actions
