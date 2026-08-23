@@ -1,0 +1,65 @@
+name: Android CI
+
+# ═══════════════════════════════════════════════════════════════════════
+#  Builds the debug APK and runs Android Lint on every push and PR.
+#
+#  google-services.json is intentionally NOT committed (it carries the
+#  Firebase project identity — see README → Configure Firebase). CI
+#  therefore synthesises a structurally-valid placeholder so the
+#  google-services Gradle plugin can resolve and the compile step can be
+#  verified. The placeholder points at no real project, so nothing in CI
+#  can touch production data.
+# ═══════════════════════════════════════════════════════════════════════
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Assemble & Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Generate placeholder google-services.json
+        run: cp app/google-services.json.example app/google-services.json
+
+      - name: Assemble debug APK
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Run Android Lint
+        run: ./gradlew lintDebug --stacktrace
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: spendsmart-debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
+      - name: Upload lint report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-report
+          path: app/build/reports/lint-results-debug.html
+          if-no-files-found: ignore
