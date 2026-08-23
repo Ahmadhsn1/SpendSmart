@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Brand Colors -->
+    <color name="primary">#6C63FF</color>
+    <color name="primary_dark">#4B44CC</color>
+    <color name="primary_light">#EEF0FF</color>
+    <color name="secondary">#FF6584</color>
+    <color name="secondary_light">#FFE8ED</color>
+    <color name="accent">#43D9A2</color>
+
+    <!-- Background Colors -->
+    <color name="background">#F6F7FB</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_variant">#F0F1F8</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#1A1A2E</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="text_hint">#9CA3AF</color>
+    <color name="text_white">#FFFFFF</color>
+
+    <!-- Status Colors -->
+    <color name="success">#10B981</color>
+    <color name="success_light">#D1FAE5</color>
+    <color name="error">#EF4444</color>
+    <color name="error_light">#FEE2E2</color>
+    <color name="warning">#F59E0B</color>
+    <color name="warning_light">#FEF3C7</color>
+
+    <!-- Category Colors -->
+    <color name="cat_food">#FF6B6B</color>
+    <color name="cat_food_light">#FFE5E5</color>
+    <color name="cat_transport">#4ECDC4</color>
+    <color name="cat_transport_light">#E0F7F6</color>
+    <color name="cat_shopping">#45B7D1</color>
+    <color name="cat_shopping_light">#E0F5FB</color>
+    <color name="cat_bills">#96CEB4</color>
+    <color name="cat_bills_light">#E8F5EE</color>
+    <color name="cat_health">#F7DC6F</color>
+    <color name="cat_health_light">#FEFCE8</color>
+    <color name="cat_education">#BB8FCE</color>
+    <color name="cat_education_light">#F5EEF8</color>
+    <color name="cat_other">#85C1E9</color>
+    <color name="cat_other_light">#EAF4FB</color>
+
+    <!-- Divider & Border -->
+    <color name="divider">#E5E7EB</color>
+    <color name="border">#D1D5DB</color>
+
+    <!-- Nav Bar -->
+    <color name="nav_bar_background">#FFFFFF</color>
+    <color name="nav_selected">#6C63FF</color>
+    <color name="nav_unselected">#9CA3AF</color>
+
+    <!-- Transparent -->
+    <color name="transparent">#00000000</color>
+    <color name="scrim">#80000000</color>
+</resources>

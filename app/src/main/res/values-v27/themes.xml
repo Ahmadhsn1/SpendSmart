@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+        API 27 (Android 8.1) and up.
+
+        The navigation bar is painted @color/surface (white), so the system
+        needs to be told to draw its handle/buttons dark. The flag does not
+        exist below API 27, which is why it is layered here instead of in
+        res/values/themes.xml.
+    -->
+    <style name="Theme.SpendSmart" parent="Base.Theme.SpendSmart">
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+</resources>
