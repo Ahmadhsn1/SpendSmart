@@ -38,7 +38,7 @@ jobs:
           java-version: '17'
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v3
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Generate placeholder google-services.json
         run: cp app/google-services.json.example app/google-services.json
