@@ -1,0 +1,92 @@
+rules_version = '2';
+
+// ═══════════════════════════════════════════════════════════════════════
+//  SpendSmart — Cloud Firestore Security Rules
+// ═══════════════════════════════════════════════════════════════════════
+//  Threat model
+//  ────────────
+//  Every document in this database is private, per-user financial data.
+//  The client SDK talks to Firestore directly — there is no backend server
+//  in between — so these rules ARE the authorization layer. A single
+//  permissive rule here would expose every user's spending history.
+//
+//  Model enforced below:
+//    • A user may read/write ONLY the document tree under their own UID.
+//    • Writes are schema-validated server-side; the client cannot invent
+//      fields or store a negative/absurd amount even if the app is patched.
+//    • Everything not explicitly matched is denied by default.
+//
+//  Deploy:  firebase deploy --only firestore:rules
+// ═══════════════════════════════════════════════════════════════════════
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helpers ──────────────────────────────────────────────────────
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // ── /users/{userId} — profile document ───────────────────────────
+    match /users/{userId} {
+
+      allow read: if isOwner(userId);
+
+      // Created once at sign-up: name + email + createdAt.
+      allow create: if isOwner(userId)
+                    && request.resource.data.keys().hasOnly(
+                         ['name', 'email', 'createdAt'])
+                    && request.resource.data.name is string
+                    && request.resource.data.name.size() > 0
+                    && request.resource.data.name.size() <= 80
+                    && request.resource.data.email is string
+                    && request.resource.data.createdAt is number;
+
+      // Profile edits may never rewrite the email or the creation stamp.
+      allow update: if isOwner(userId)
+                    && request.resource.data.email == resource.data.email
+                    && request.resource.data.createdAt == resource.data.createdAt;
+
+      allow delete: if isOwner(userId);
+
+      // ── /users/{userId}/expenses/{expenseId} ──────────────────────
+      match /expenses/{expenseId} {
+
+        function validExpense(d) {
+          return d.keys().hasOnly(
+                   ['title', 'amount', 'category', 'date', 'note', 'timestamp'])
+                 && d.title is string
+                 && d.title.size() > 0
+                 && d.title.size() <= 120
+                 && d.amount is number
+                 && d.amount > 0
+                 && d.amount <= 1000000000
+                 && d.category in ['Food', 'Transport', 'Shopping', 'Bills',
+                                   'Health', 'Education', 'Other']
+                 && d.date is string
+                 && d.timestamp is number;
+        }
+
+        allow read:   if isOwner(userId);
+        allow create: if isOwner(userId) && validExpense(request.resource.data);
+
+        // An update may change the editable fields but must not move the
+        // row's creation timestamp — that is the stable sort key.
+        allow update: if isOwner(userId)
+                      && validExpense(request.resource.data)
+                      && request.resource.data.timestamp == resource.data.timestamp;
+
+        allow delete: if isOwner(userId);
+      }
+    }
+
+    // ── Default deny ─────────────────────────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
