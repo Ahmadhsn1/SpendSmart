@@ -1,0 +1,66 @@
+# ─────────────────────────────────────────────────────────────
+#  Gradle / Android build artifacts
+# ─────────────────────────────────────────────────────────────
+*.iml
+.gradle/
+build/
+app/build/
+captures/
+.externalNativeBuild/
+.cxx/
+release/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+output-metadata.json
+
+# ─────────────────────────────────────────────────────────────
+#  Local machine configuration (never commit — machine-specific)
+# ─────────────────────────────────────────────────────────────
+local.properties
+.idea/
+*.hprof
+
+# ─────────────────────────────────────────────────────────────
+#  Secrets & credentials  ⚠️  NEVER COMMIT
+# ─────────────────────────────────────────────────────────────
+# Firebase project configuration — see google-services.json.example
+app/google-services.json
+google-services.json
+
+# Signing keys
+*.jks
+*.keystore
+keystore.properties
+signing.properties
+
+# Local test-account scratch files
+last-test-account.txt
+*-test-account.txt
+secrets.properties
+
+# ─────────────────────────────────────────────────────────────
+#  Debug / tooling scratch output
+# ─────────────────────────────────────────────────────────────
+# uiautomator view-hierarchy dumps (can contain typed credentials)
+window.xml
+*.uix
+*.trace
+
+# Local UI-preview scratch pad used to author docs/screenshots
+.preview/
+
+# Ad-hoc device captures dropped in the project root.
+# Documentation screenshots live in docs/screenshots/ and ARE tracked.
+/spendsmart-*.png
+/screenshot*.png
+
+# ─────────────────────────────────────────────────────────────
+#  OS noise
+# ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+__MACOSX/

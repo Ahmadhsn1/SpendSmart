@@ -1,0 +1,28 @@
+# Normalise line endings on checkin, let each OS check out what it wants.
+* text=auto eol=lf
+
+# Windows-only scripts must keep CRLF or cmd.exe mis-parses them.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# The Gradle wrapper script must stay LF and executable on every platform.
+gradlew text eol=lf
+
+# Binaries — never touch, never diff.
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.webp   binary
+*.ttf    binary
+*.otf    binary
+*.woff2  binary
+*.jar    binary
+*.keystore binary
+*.jks    binary
+*.apk    binary
+*.aab    binary
+
+# Keep generated/vendored files out of the language statistics and
+# collapse them in pull-request diffs.
+gradle/wrapper/gradle-wrapper.jar linguist-vendored
+docs/screenshots/*             linguist-documentation
