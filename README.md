@@ -673,3 +673,7 @@ reports go through [SECURITY.md](SECURITY.md) instead of the public issue tracke
 <br />
 <sub>Built with Java, Firebase, and an unreasonable amount of attention to 4dp increments.</sub>
 </div>
+
+## Case study
+
+The engineering decisions, metrics and screenshots for SpendSmart are written up in the [SpendSmart case study](https://ahmadhsn1.github.io/work/spendsmart/).
